@@ -2,10 +2,17 @@ package com.mapr.kafka.serializer.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Date;
 import java.util.StringTokenizer;
 
 
 public class Contact {
+	private String ProjectCode;
+	private String ProjectName;
+	private int TotalBid;
+	private int ExpectedDuration;
+	private String ExpectedStartDate;
+	private String ExpectedEndDate;
     private int contactId;
     private String firstName;
     private String lastName;
@@ -13,61 +20,111 @@ public class Contact {
     public Contact(){
 
     }
-    public Contact(int contactId, String firstName, String lastName) {
-        this.contactId = contactId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Contact(String ProjectCode, String ProjectName, int TotalBid, int ExpectedDuration, String ExpectedStartDate, String ExpectedEndDate) {
+	this.ProjectCode=ProjectCode;
+	this.ProjectName=ProjectName;
+	this.TotalBid=TotalBid;
+	this.ExpectedDuration=ExpectedDuration;
+	this.ExpectedStartDate=ExpectedStartDate;
+	this.ExpectedEndDate=ExpectedEndDate;        
     }
 
     public void parseString(String csvStr){
         StringTokenizer st = new StringTokenizer(csvStr,",");
-        contactId = Integer.parseInt(st.nextToken());
-        firstName = st.nextToken();
-        lastName = st.nextToken();
+	ProjectCode=st.nextToken();
+	ProjectName=st.nextToken();
+	TotalBid= Integer.parseInt(st.nextToken());
+	ExpectedDuration=Integer.parseInt(st.nextToken());
+	ExpectedStartDate=(st.nextToken());
+	ExpectedEndDate=(st.nextToken());
+        
     }
 
-
-    public int getContactId() {
-        return contactId;
+    public String getProjectCode() {
+		return ProjectCode;
+    	
     }
-
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
+    
+    public void setProjectCode(String ProjectCode) {
+		this.ProjectCode= ProjectCode;
+    	
     }
-
-    public String getFirstName() {
-        return firstName;
+    
+    public String getProjectName() {
+		return ProjectName;
+    	
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    
+    public void setProjectName(String ProjectName) {
+		this.ProjectName= ProjectName;
+    	
     }
-
-    public String getLastName() {
-        return lastName;
+    
+    public int getTotalBid() {
+		return TotalBid;
+    	
     }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    
+    public void setTotalBid(int TotalBid) {
+		this.TotalBid= TotalBid;
+    	
     }
+    
+    public int getExpectedDuration() {
+		return ExpectedDuration;
+    	
+    }
+    
+    public void setExpectedDuration(int ExpectedDuration) {
+		this.ExpectedDuration= ExpectedDuration;
+    	
+    }
+    
+    public String getExpectedStartDate() {
+ 		return ExpectedStartDate;
+     	
+     }
+     
+     public void setExpectedStartDate(String ExpectedStartDate) {
+ 		this.ExpectedStartDate= ExpectedStartDate;
+     	
+     }
+     
+     public String getExpectedEndDate() {
+  		return ExpectedEndDate;
+      	
+      }
+      
+      public void setExpectedEndDate(String ExpectedEndDate) {
+  		this.ExpectedEndDate=ExpectedEndDate;
+      	
+      }
+    
+    
+    /////////////////////////////////////////
+   
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "contactId=" + contactId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+    	//System.out.println("hii");
+        return "Project{" +
+                "ProjectCode=" + ProjectCode +
+                ", ProjectName'" + ProjectName + '\'' +
+                ", TotalBid='" + TotalBid + '\'' +
+		", ExpectedDuration='" + ExpectedDuration + '\'' +
+		", ExpectedStartDate='" + ExpectedStartDate + '\'' +
+		", ExpectedEndDate='" + ExpectedEndDate + '\'' +
                 '}';
     }
 
     public static void main(String[] argv)throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         Contact contact = new Contact();
-        contact.setContactId(1);
+        /*contact.setContactId(1);
         contact.setFirstName("Sachin");
         contact.setLastName("Tendulkar");
         System.out.println(mapper.writeValueAsString(contact));
         contact.parseString("1,Rahul,Dravid");
-        System.out.println(mapper.writeValueAsString(contact));
+        System.out.println(mapper.writeValueAsString(contact));*/
     }
 }

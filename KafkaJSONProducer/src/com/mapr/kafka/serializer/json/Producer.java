@@ -41,6 +41,7 @@ public class Producer {
             JsonNode  jsonNode = objectMapper.valueToTree(contact);
             ProducerRecord<String, JsonNode> rec = new ProducerRecord<String, JsonNode>(topicName,jsonNode);
             producer.send(rec);
+            System.out.println(rec);
             line = in.nextLine();
         }
         in.close();

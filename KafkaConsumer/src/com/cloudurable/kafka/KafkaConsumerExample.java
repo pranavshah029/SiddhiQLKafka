@@ -9,14 +9,15 @@ import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.util.Collections;
-
+import java.util.Hashtable;
 import java.util.Properties;
-import org.json.simple.JSONObject;
+//import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.*;
 public class KafkaConsumerExample {
 
-    private final static String TOPIC = "kafka_result_topic";
+    private final static String TOPIC = "kafka_result_topic_project";
 
     private final static String BOOTSTRAP_SERVERS =
 
@@ -85,20 +86,42 @@ public class KafkaConsumerExample {
                         record.key(), record.value(),
 
                         record.partition(), record.offset());
-                System.out.println(record.value().toString());
-                JSONParser parser=new JSONParser();
+                /////////////////////////////
+                
+          
+                String json_str=record.value().toString();
+                
                 try {
-					System.out.println(parser.parse(record.value()));
+					JSONObject root = new JSONObject(json_str);
+					//JSONArray projectArray=root.getJSONArray("project");
+					//JSONArray event = root.getJSONArray("Event");
+
+					//String p_code=(String) root.get("event");
+					JSONObject event = root.getJSONObject("event"); 
+					String p_code=event.getString("projectCode");
+					String p_name=event.getString("projectName");
+					int t_bid=event.getInt("totalBid");
+					int e_duration=event.getInt("expectedDuration");
+					String e_start=event.getString("expectedStartDate");
+					String e_end=event.getString("expectedEndDate");
 					
-				} catch (ParseException e) {
+					System.out.println("*****"+e_end);
+				} catch (JSONException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
+                
+                
+                
+                System.out.println(record.value().toString());
+                
+                
+                
+               /////////////////////////////////// 
             });
             
             
-            //System.out.println(consumerRecords);
-            //System.out.println(consumerRecords);
+           
             consumer.commitAsync();
 
         }
