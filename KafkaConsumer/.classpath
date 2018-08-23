@@ -11,5 +11,22 @@
 	<classpathentry kind="lib" path="/home/pranav/Downloads/json-simple-1.1.jar"/>
 	<classpathentry kind="lib" path="/home/pranav/Downloads/org.json.jar"/>
 	<classpathentry kind="lib" path="/home/pranav/Downloads/java-json.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/HTTPClient-0.3-3.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/apache-httpcomponents-httpclient.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/httpclient-4.3.3.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/siddhi-query-compiler-3.0.2.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/siddhi-query-api-3.0.2.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/siddhi-core-3.0.2.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/jackson-core-2.6.7.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/http-1.0.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/com.fasterxml.jackson.databind.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/org.apache.commons.httpclient.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/org.apache.commons.httpclient.jar.zip"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/httpclient-4.0.2.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/apache-httpcomponents-httpcore.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/javax.json-1.0.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/httpcore-4.4.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/commons-logging-1.2/commons-logging-1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/pranav/Downloads/commons-logging-1.2/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
