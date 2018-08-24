@@ -161,7 +161,7 @@ public class KafkaConsumerExample {
             		
             		try {
             			String output;
-            			System.out.println("Output from Server .... \n");
+            			
             			output=br.readLine();
             			/*while ((output = br.readLine()) != null) {
             				System.out.println(output);
@@ -238,7 +238,7 @@ public class KafkaConsumerExample {
             				
             			}
             				
-            				System.out.println("*****"+deal_id+"*****"+value);
+            			//	System.out.println("*****"+deal_id+"*****"+value);
             				
             			}
             			
