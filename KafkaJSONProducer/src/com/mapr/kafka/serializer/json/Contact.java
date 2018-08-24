@@ -16,17 +16,19 @@ public class Contact {
     private int contactId;
     private String firstName;
     private String lastName;
+    private boolean over;
 
     public Contact(){
 
     }
-    public Contact(String ProjectCode, String ProjectName, int TotalBid, int ExpectedDuration, String ExpectedStartDate, String ExpectedEndDate) {
+    public Contact(String ProjectCode, String ProjectName, int TotalBid, int ExpectedDuration, String ExpectedStartDate, String ExpectedEndDate, boolean over) {
 	this.ProjectCode=ProjectCode;
 	this.ProjectName=ProjectName;
 	this.TotalBid=TotalBid;
 	this.ExpectedDuration=ExpectedDuration;
 	this.ExpectedStartDate=ExpectedStartDate;
-	this.ExpectedEndDate=ExpectedEndDate;        
+	this.ExpectedEndDate=ExpectedEndDate;
+	this.over=over;
     }
 
     public void parseString(String csvStr){
@@ -37,6 +39,7 @@ public class Contact {
 	ExpectedDuration=Integer.parseInt(st.nextToken());
 	ExpectedStartDate=(st.nextToken());
 	ExpectedEndDate=(st.nextToken());
+	over=Boolean.parseBoolean(st.nextToken());
         
     }
 
@@ -99,14 +102,24 @@ public class Contact {
   		this.ExpectedEndDate=ExpectedEndDate;
       	
       }
+      
+      public boolean getover() {
+  		return over;
+      	
+      }
+      
+      public void setover(boolean over) {
+  		this.over= over;
+      	
+      }
     
     
-    /////////////////////////////////////////
+   
    
 
     @Override
     public String toString() {
-    	//System.out.println("hii");
+    	
         return "Project{" +
                 "ProjectCode=" + ProjectCode +
                 ", ProjectName'" + ProjectName + '\'' +
@@ -114,17 +127,13 @@ public class Contact {
 		", ExpectedDuration='" + ExpectedDuration + '\'' +
 		", ExpectedStartDate='" + ExpectedStartDate + '\'' +
 		", ExpectedEndDate='" + ExpectedEndDate + '\'' +
+		", over='" + over + '\'' +
                 '}';
     }
 
     public static void main(String[] argv)throws Exception{
         ObjectMapper mapper = new ObjectMapper();
         Contact contact = new Contact();
-        /*contact.setContactId(1);
-        contact.setFirstName("Sachin");
-        contact.setLastName("Tendulkar");
-        System.out.println(mapper.writeValueAsString(contact));
-        contact.parseString("1,Rahul,Dravid");
-        System.out.println(mapper.writeValueAsString(contact));*/
+       
     }
 }

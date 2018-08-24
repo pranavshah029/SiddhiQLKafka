@@ -32,6 +32,7 @@ public class KafkaConsumerExample {
 
 	
 	public static String p_code,p_name,e_start,e_end;
+	public static boolean p_over;
 	public static int t_bid,e_duration;
 	
     private final static String TOPIC = "kafka_result_topic_project";
@@ -121,8 +122,8 @@ public class KafkaConsumerExample {
 					 e_duration=event.getInt("expectedDuration");
 					 e_start=event.getString("expectedStartDate");
 					 e_end=event.getString("expectedEndDate");
+					 p_over=event.getBoolean("over");
 					
-					System.out.println("*****"+e_end);
 				} catch (JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -132,9 +133,14 @@ public class KafkaConsumerExample {
                 
                 System.out.println(record.value().toString());
                 
+                //* if project is not over then update in hubspot*/
+                if(p_over==false) {
+                	
+                	
+                	
+                }
                 
-                /*
-                 * Fetch Hubspot API*/
+                /* Fetch Hubspot API*/
                 
                 try {
                 	 
@@ -173,12 +179,19 @@ public class KafkaConsumerExample {
             				int deal_id = deal_1.getInt("dealId");
             			 System.out.println("Deal Name :"+value);
             			 
-            				if(value.equals(p_name)) {
+            				if(value.equals(p_name) && p_over==false) {
             					
             		
             				System.out.println("Going to hubspot");
             				
-            				String myDate = e_end+" 18:10:45";
+            				SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+
+            			    Date now = new Date();
+
+            			    String strTime = sdfTime.format(now);
+            				
+            				
+            				String myDate = e_end+" "+strTime;
             				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             				Date date = sdf.parse(myDate);
             				long millis = date.getTime();

@@ -20,9 +20,12 @@ public class Producer {
             System.err.println("Please specify 1 parameters ");
             System.exit(-1);
         }
+        
+        ////take kafka topic name from argument
         String topicName = argv[0];
         in = new Scanner(System.in);
-        System.out.println("Enter message(type exit to quit)");
+        //System.out.println("Enter message(type exit to quit)");
+        System.out.println("Enter stream in format ProjectCode, ProjectName, TotalBid, ExpectedDuration, ExpectedStartDate(YYYY/MM/DD), ExpectedEndDate(YYYY/MM/DD), Over [boolean]");
 
         //Configure the Producer
         Properties configProperties = new Properties();
