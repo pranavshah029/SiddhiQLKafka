@@ -1,0 +1,29 @@
+@App:name("HelloKafka_JSONStream")
+
+@App:description('Consume events from a Kafka Topic and publish to a different Kafka Topic')
+
+
+
+@source(type='kafka',
+        topic.list='kafka_topic',
+        partition.no.list='0',
+        threading.option='single.thread',
+        group.id="group",
+        bootstrap.servers='localhost:9092',
+        @map(type='json'))
+define stream SweetProductionStream (projectCode string, projectName string, totalBid int, expectedDuration int, expectedStartDate string, expectedEndDate string, over bool );
+
+@sink(type='kafka',
+      topic='kafka_result_topic_project',
+      bootstrap.servers='localhost:9092',
+      partition.no='0',
+      @map(type='json'))
+define stream LowProductionAlertStream (projectCode string, projectName string, totalBid int, expectedDuration int, expectedStartDate string, expectedEndDate string, over bool);
+
+
+@info(name='query1')
+from SweetProductionStream[over==false]
+select *
+insert into LowProductionAlertStream;
+
+
