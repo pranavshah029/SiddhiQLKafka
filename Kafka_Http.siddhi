@@ -1,0 +1,35 @@
+@App:name('Kafka_Http')
+@App:description('Description of the plan')
+
+-- Please refer to https://docs.wso2.com/display/SP400/Quick+Start+Guide on getting started with SP editor. 
+
+@source(type = 'kafka',
+        topic.list = 'kafka_topic',
+        partition.no.list = '0', 
+        threading.option = 'single.thread', 
+        group.id = 'group',
+        bootstrap.servers = 'localhost:9092', 
+        
+	@map(type = 'json'))
+define stream SweetProductionStream (projectCode string, projectName string, totalBid int, expectedDuration int, expectedStartDate string, expectedEndDate string, over bool);
+
+--@sink(type = 'http', publisher.url = 'https://api.hubapi.com/deals/v1/deal/340485284?hapikey=d583a2d1-b573-40f2-a4d3-56076b574cff',method = 'PUT', headers="'content-type:application/json'")
+ --       	define stream LowProductionAlertStream ( projectCode string,totalBid int);
+        	
+@sink(type="http",
+        method="PUT",
+        header="'Content-Type:application/json','User-Agent'",
+       
+        client.bootstrap.configuration="'client.bootstrap.socket.timeout:20', 'client.bootstrap.worker.group.size:10'",
+        client.pool.configuration="'client.connection.pool.count:10','client.max.active.connections.per.pool:2'",
+        --publisher.url="http://localhost:8080/abc",
+        publisher.url = "http://api.hubapi.com/deals/v1/deal/340485284?hapikey=d583a2d1-b573-40f2-a4d3-56076b574cff", 
+        @map(type='json', validate.json='true', @payload("""{"properties":[{"name":"amount","value":"{{totalBid}}"}]}""")))
+define stream LowProductionAlertStream (projectCode string, totalBid int);
+
+
+@info(name = 'query1')
+from SweetProductionStream 
+select projectCode,totalBid 
+insert into LowProductionAlertStream;
+
