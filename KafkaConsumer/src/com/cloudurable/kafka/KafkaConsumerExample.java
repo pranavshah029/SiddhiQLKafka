@@ -79,7 +79,7 @@ public class KafkaConsumerExample {
 
         final Consumer<Long, String> consumer = createConsumer();
 
-        final int giveUp = 100;   int noRecordsCount = 0;
+        final int giveUp = 1000;   int noRecordsCount = 0;
 
         while (true) {
 
@@ -133,13 +133,8 @@ public class KafkaConsumerExample {
                 
                 System.out.println(record.value().toString());
                 
-                //* if project is not over then update in hubspot*/
-                if(p_over==false) {
-                	
-                	
-                	
-                }
-                
+                /* if project is not over then update in hubspot*/
+             
                 /* Fetch Hubspot API*/
                 
                 try {
@@ -202,13 +197,16 @@ public class KafkaConsumerExample {
             			        		.add("properties",Json.createArrayBuilder()
             			        				.add(Json.createObjectBuilder()
             			        						.add("name", "closedate")
-            			        						.add("value", millis)))
+            			        						.add("value", millis))
+            			        				.add(Json.createObjectBuilder()
+            			        						.add("name","amount")
+            			        						.add("value",t_bid)))
             			        		.build();
             			        
             			        
             			     
             			        
-            			        
+            			        /*call update api in hubspot with specific dealid*/
             			        
             			        DefaultHttpClient httpClient_2 = new DefaultHttpClient();
             					HttpPut putRequest = new HttpPut(

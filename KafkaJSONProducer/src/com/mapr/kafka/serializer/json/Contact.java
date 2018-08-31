@@ -13,9 +13,7 @@ public class Contact {
 	private int ExpectedDuration;
 	private String ExpectedStartDate;
 	private String ExpectedEndDate;
-    private int contactId;
-    private String firstName;
-    private String lastName;
+    
     private boolean over;
 
     public Contact(){
