@@ -1,0 +1,39 @@
+@App:name('Kafka_Http_1')
+
+@App:description('Description of the plan')
+
+-- Please refer to https://docs.wso2.com/display/SP400/Quick+Start+Guide on getting started with SP editor. 
+
+
+--@sink(type = 'http', publisher.url = 'https://api.hubapi.com/deals/v1/deal/340485284?hapikey=d583a2d1-b573-40f2-a4d3-56076b574cff',method = 'PUT', headers="'content-type:application/json'")
+ --       	define stream LowProductionAlertStream ( projectCode string,totalBid int);
+      
+ define stream SweetProductionStream (projectCode string, projectName string, totalBid int, expectedDuration int, expectedStartDate string, expectedEndDate string, over bool);     
+
+        	
+@sink(type="http-request",
+        method="PUT",
+        sink.id="123",
+        headers="'Content-Type:application/json','Accept:application/json','User-Agent:curl/7.37.0','Host:api.hubapi.com','hapikey:d583a2d1-b573-40f2-a4d3-56076b574cff'",
+        -- basic.auth.enabled='true',
+        follow.redirect='true',
+        --client.bootstrap.sendbuffersize="1000",
+        -- client.bootstrap.configuration="'client.bootstrap.socket.timeout:20', 'client.bootstrap.worker.group.size:10'",
+        -- client.pool.configuration="'client.connection.pool.count:10','client.max.active.connections.per.pool:2'",
+        -- publisher.url="http://api.github.com/",
+        publisher.url = "http://api.hubapi.com/deals/v1/deal/340485284?hapikey=d583a2d1-b573-40f2-a4d3-56076b574cff",
+       -- publisher.url="http://api.hubapi.com%2Fdeals%2Fv1%2Fdeal%2F340485284%3Fhapikey%3Dd583a2d1-b573-40f2-a4d3-56076b574cff",
+       -- hapikey="d583a2d1-b573-40f2-a4d3-56076b574cff",
+       -- basic.auth.username="hapikey",
+      --  basic.auth.password="d583a2d1-b573-40f2-a4d3-56076b574cff",
+        parameters="'hapikey:d583a2d1-b573-40f2-a4d3-56076b574cff'",
+        @attributes(message="hapikey:d583a2d1-b573-40f2-a4d3-56076b574cff"),
+    
+        @map(type='json', validate.json='true', @payload("""{"properties":[{"name":"amount","value":"100"}]}""")))
+define stream LowProductionAlertStream (projectCode string, totalBid int);
+
+
+@info(name = 'query1')
+from SweetProductionStream 
+select projectCode,totalBid 
+insert into LowProductionAlertStream;
